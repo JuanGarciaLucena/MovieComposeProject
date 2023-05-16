@@ -1,6 +1,6 @@
-package com.emebesoft.baseProject.di
+package com.emebesoft.movieProject.di
 
-import com.emebesoft.baseProject.BuildConfig
+import com.emebesoft.movieProject.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

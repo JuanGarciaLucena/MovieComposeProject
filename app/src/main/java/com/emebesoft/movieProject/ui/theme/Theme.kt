@@ -1,4 +1,4 @@
-package com.emebesoft.baseProject.ui.theme
+package com.emebesoft.movieProject.ui.theme
 
 import android.app.Activity
 import android.os.Build

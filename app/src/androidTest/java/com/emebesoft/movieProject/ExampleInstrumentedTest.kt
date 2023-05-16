@@ -1,4 +1,4 @@
-package com.emebesoft.baseProject
+package com.emebesoft.movieProject
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

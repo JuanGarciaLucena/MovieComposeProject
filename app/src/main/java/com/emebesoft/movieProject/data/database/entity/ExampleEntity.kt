@@ -1,4 +1,4 @@
-package com.emebesoft.baseProject.data.database.entity
+package com.emebesoft.movieProject.data.database.entity
 
 import androidx.room.Entity
 
