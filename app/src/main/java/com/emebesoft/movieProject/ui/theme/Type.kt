@@ -1,4 +1,4 @@
-package com.emebesoft.baseProject.ui.theme
+package com.emebesoft.movieProject.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

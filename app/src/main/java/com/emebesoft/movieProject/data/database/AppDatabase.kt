@@ -1,8 +1,8 @@
-package com.emebesoft.baseProject.data.database
+package com.emebesoft.movieProject.data.database
 
 import androidx.room.Database
-import com.emebesoft.baseProject.data.database.dao.ExampleDao
-import com.emebesoft.baseProject.data.database.entity.ExampleEntity
+import com.emebesoft.movieProject.data.database.dao.ExampleDao
+import com.emebesoft.movieProject.data.database.entity.ExampleEntity
 
 @Database(entities = [ExampleEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase {
