@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -26,15 +27,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //Todo: Change base url
-            buildConfigField "String", "BASE_URL", "\"https://google.com/\""
+            buildConfigField "String", "BASE_URL", "\"https://rickandmortyapi.com/api/\""
         }
 
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //Todo: Change base url
-            buildConfigField "String", "BASE_URL", "\"https://google.com/\""
+            buildConfigField "String", "BASE_URL", "\"https://rickandmortyapi.com/api/\""
         }
     }
     compileOptions {
@@ -43,6 +42,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '17'
+        allWarningsAsErrors = false
+        freeCompilerArgs += [
+                '-opt-in=androidx.compose.material3.ExperimentalMaterial3Api'
+        ]
     }
     buildFeatures {
         compose true
@@ -65,19 +68,21 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
 
     //jetpack compose
-    implementation 'androidx.activity:activity-compose:1.7.1'
+    implementation 'androidx.activity:activity-compose:1.7.2'
     implementation platform('androidx.compose:compose-bom:2022.10.00')
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.1"
+    implementation "androidx.navigation:navigation-compose:2.6.0"
 
     //di
     implementation 'com.google.dagger:hilt-android:2.44'
     kapt "com.google.dagger:hilt-compiler:2.44"
 
     //Lifecycle
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
 
     //room
     implementation "androidx.room:room-ktx:2.5.1"
@@ -88,7 +93,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
     kapt 'com.github.bumptech.glide:compiler:4.14.2'
 
     //testing

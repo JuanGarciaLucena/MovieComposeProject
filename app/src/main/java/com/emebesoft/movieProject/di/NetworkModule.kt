@@ -1,6 +1,7 @@
 package com.emebesoft.movieProject.di
 
-import com.emebesoft.movieProject.BuildConfig
+import com.emebesoft.baseProject.BuildConfig
+import com.emebesoft.movieProject.data.network.RickMortyRetrofitApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,5 +21,11 @@ class NetworkModule {
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun providesRMApiClient(retrofit: Retrofit) : RickMortyRetrofitApi{
+        return retrofit.create(RickMortyRetrofitApi::class.java)
     }
 }
