@@ -7,7 +7,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.emebesoft.movieProject.data.database.entity.CharacterEntity
 import com.emebesoft.movieProject.ui.screens.Detail
 import com.emebesoft.movieProject.ui.screens.Home
 import com.emebesoft.movieProject.ui.viewmodel.CharacterViewModel
@@ -25,7 +24,7 @@ class Navigation {
                 route = "Detail/{characterId}",
                 arguments = listOf(navArgument("characterId") { type = NavType.StringType }))
             { backStackNavEntry ->
-                Detail(navController = navController, backStackNavEntry.arguments?.getString("characterId")!!)
+                Detail(navController = navController, backStackNavEntry.arguments?.getString("characterId")!!).DetailMain(viewModel)
             }
         }
     }

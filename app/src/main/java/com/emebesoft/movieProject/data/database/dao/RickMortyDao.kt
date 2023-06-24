@@ -12,6 +12,12 @@ interface RickMortyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveCharacters(characterList: List<CharacterEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveSingleCharacter(character: CharacterEntity)
+
     @Query("SELECT * FROM character_table")
     suspend fun getCharactersFromDatabase(): List<CharacterEntity>
+
+    @Query("SELECT * FROM character_table WHERE id = :id")
+    suspend fun getCharacterById(id: String) : CharacterEntity
 }

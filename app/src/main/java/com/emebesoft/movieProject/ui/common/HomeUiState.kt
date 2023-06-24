@@ -2,14 +2,14 @@ package com.emebesoft.movieProject.ui.common
 
 import com.emebesoft.movieProject.data.database.entity.CharacterEntity
 
-sealed interface UiState{
-    object Loading : UiState
+sealed interface HomeUiState{
+    object Loading : HomeUiState
 
     data class Success(
         val data: List<CharacterEntity>
-    ) : UiState
+    ) : HomeUiState
 
     data class Error(
         val Throwable: Throwable? = null
-    ): UiState
+    ): HomeUiState
 }

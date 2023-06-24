@@ -3,7 +3,7 @@ package com.emebesoft.movieProject.di
 import android.content.Context
 import androidx.room.Room
 import com.emebesoft.movieProject.data.database.RickMortyDb
-import com.emebesoft.movieProject.utils.DatabaseUtils.Companion.DATABASE_NAME
+import com.emebesoft.movieProject.utils.Constants.Companion.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

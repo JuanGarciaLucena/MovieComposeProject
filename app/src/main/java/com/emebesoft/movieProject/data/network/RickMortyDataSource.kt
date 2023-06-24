@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class RickMortyDataSource @Inject constructor(private val api: RickMortyRetrofitApi) {
-    val allCharacters: Flow<List<CharacterModelResult>> = flow {
-        emit(api.getAllCharacters().results)
-    }
+
+    suspend fun fetchCharactersFromApi() = api.getAllCharacters().results
 }
