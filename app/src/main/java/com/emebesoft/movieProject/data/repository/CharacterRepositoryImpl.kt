@@ -1,8 +1,10 @@
 package com.emebesoft.movieProject.data.repository
 
 import com.emebesoft.movieProject.data.database.dao.RickMortyDao
-import com.emebesoft.movieProject.data.database.entity.CharacterEntity
+import com.emebesoft.movieProject.data.database.entity.RickMortyCharacterEntity
 import com.emebesoft.movieProject.data.network.RickMortyDataSource
+import com.emebesoft.movieProject.domain.model.Character
+import com.emebesoft.movieProject.domain.model.toCharacter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -12,11 +14,11 @@ class CharacterRepositoryImpl @Inject constructor(
     private val rickMortyDao: RickMortyDao
 ) : CharacterRepository {
 
-    override suspend fun getCharacters(): Flow<List<CharacterEntity>> = flow {
+    override suspend fun getCharacters(): Flow<List<Character>> = flow {
 
         if (rickMortyDao.getCharactersFromDatabase().isEmpty()) {
             rickMortyDao.saveCharacters(rickMortyDataSource.fetchCharactersFromApi().map { characterItem ->
-                CharacterEntity(
+                RickMortyCharacterEntity(
                     id = characterItem.id,
                     name = characterItem.name,
                     status = characterItem.status,
@@ -34,10 +36,10 @@ class CharacterRepositoryImpl @Inject constructor(
                 )
             })
         }
-        emit(rickMortyDao.getCharactersFromDatabase())
+        emit(rickMortyDao.getCharactersFromDatabase().map { characterEntity ->  characterEntity.toCharacter()})
     }
 
-    override suspend fun getCharacter(characterId: String): Flow<CharacterEntity> = flow {
-        emit(rickMortyDao.getCharacterById(characterId))
+    override suspend fun getCharacter(characterId: String): Flow<Character> = flow {
+        emit(rickMortyDao.getCharacterById(characterId).toCharacter())
     }
 }

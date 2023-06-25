@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.emebesoft.movieProject.ui.screens.Detail
 import com.emebesoft.movieProject.ui.screens.Home
-import com.emebesoft.movieProject.ui.viewmodel.CharacterViewModel
+import com.emebesoft.movieProject.ui.viewmodel.RickMortyCharacterViewModel
 
 
 class Navigation {
@@ -17,7 +17,7 @@ class Navigation {
     @Composable
     fun MyAppNavHost() {
         val navController = rememberNavController()
-        val viewModel: CharacterViewModel = viewModel()
+        val viewModel: RickMortyCharacterViewModel = viewModel()
         NavHost(navController = navController, startDestination = "Home") {
             composable("Home") { Home(navController).HomeMain(viewModel) }
             composable(

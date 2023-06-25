@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "character_table")
-data class CharacterEntity (
+data class RickMortyCharacterEntity (
 
     @PrimaryKey
     @ColumnInfo(name = "id") val id: Int,

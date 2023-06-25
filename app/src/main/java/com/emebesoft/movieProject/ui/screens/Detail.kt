@@ -41,18 +41,18 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.emebesoft.baseProject.R
-import com.emebesoft.movieProject.data.database.entity.CharacterEntity
-import com.emebesoft.movieProject.ui.common.DetailUiState
+import com.emebesoft.movieProject.domain.model.Character
+import com.emebesoft.movieProject.ui.states.DetailUiState
 import com.emebesoft.movieProject.ui.common.LoadingUi
 import com.emebesoft.movieProject.ui.common.MyToolbar
-import com.emebesoft.movieProject.ui.viewmodel.CharacterViewModel
+import com.emebesoft.movieProject.ui.viewmodel.RickMortyCharacterViewModel
 import com.emebesoft.movieProject.utils.Constants
 import com.emebesoft.movieProject.utils.DateUtils
 
 class Detail(private val navController: NavController, private val characterId: String) {
 
     @Composable
-    fun DetailMain(viewModel: CharacterViewModel) {
+    fun DetailMain(viewModel: RickMortyCharacterViewModel) {
 
         viewModel.getCharacter(characterId)
         val uiState by viewModel.detailFlow.collectAsStateWithLifecycle()
@@ -94,7 +94,7 @@ class Detail(private val navController: NavController, private val characterId: 
     }
 
     @Composable
-    fun CharacterHeader(character: CharacterEntity) {
+    fun CharacterHeader(character: Character) {
         MaterialTheme {
             Box(
                 Modifier.padding(top = 50.dp)
