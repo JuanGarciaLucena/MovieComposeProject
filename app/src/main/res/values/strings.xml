@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Rick &amp; Morty DB</string>
+    
+    <!-- Home Strings -->
+    <string name="home_search_hint">Search character</string>
+
+    <!-- Detail Strings -->
+    <string name="detail_character_info_label">Character Info</string>
+    <string name="detail_num_episodes">Number of episodes: %1$s</string>
+    <string name="detail_creation_date">"Created on %1$s"</string>
+
+    <!--Error Strings -->
+    <string name="error_default_message">Sorry, Something went wrong. Just remember:</string>
+
+    <!-- Images content description -->
+    <string name="content_description_search_character">Search character field</string>
+    <string name="content_description_back_nav">Back navigation</string>
+    <string name="content_description_error">Default error picture</string>
 </resources>

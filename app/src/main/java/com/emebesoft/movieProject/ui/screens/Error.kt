@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,7 +30,7 @@ class Error {
 
             Text(
                 fontSize = 30.sp,
-                text = "Sorry, Something went wrong. Just remember:",
+                text = stringResource(id = R.string.error_default_message),
                 color = Color.Black,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -38,7 +39,7 @@ class Error {
             )
             Image(
                 painter = painterResource(id = R.drawable.pic_error),
-                contentDescription = "error"
+                contentDescription = stringResource(id = R.string.content_description_error)
             )
         }
     }

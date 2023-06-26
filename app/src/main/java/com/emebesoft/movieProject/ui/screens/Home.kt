@@ -39,6 +39,7 @@ import com.emebesoft.movieProject.ui.states.HomeUiState
 import com.emebesoft.movieProject.ui.common.LoadingUi
 import com.emebesoft.movieProject.ui.viewmodel.RickMortyCharacterViewModel
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import com.emebesoft.movieProject.domain.model.Character
 
 class Home(private val navController: NavController) {
@@ -65,7 +66,7 @@ class Home(private val navController: NavController) {
         var queryText by remember { mutableStateOf("") }
         var active by remember { mutableStateOf(false) }
 
-        Scaffold(topBar = { MyToolbar(title = "Rick & Morty") }) {
+        Scaffold(topBar = { MyToolbar(title = stringResource(id = R.string.app_name)) }) {
             it.calculateBottomPadding()
 
             Box(
@@ -83,8 +84,10 @@ class Home(private val navController: NavController) {
                     onActiveChange = { isActive ->
                         active = isActive
                     },
-                    placeholder = { Text("Hinted search text") },
-                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                    placeholder = { Text(stringResource(id = R.string.home_search_hint)) },
+                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = stringResource(
+                        id = R.string.content_description_search_character
+                    )) },
                     trailingIcon = {
                         Icon(
                             Icons.Default.Close,

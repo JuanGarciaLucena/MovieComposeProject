@@ -33,6 +33,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -65,7 +66,7 @@ class Detail(private val navController: NavController, private val characterId: 
                         IconButton(onClick = { navController.popBackStack() }) {
                             Icon(
                                 Icons.Default.ArrowBack,
-                                contentDescription = "Navegación hacia atrás",
+                                contentDescription = stringResource(id = R.string.content_description_back_nav),
                                 tint = Color.White
                             )
                         }
@@ -197,13 +198,13 @@ class Detail(private val navController: NavController, private val characterId: 
                         ) {
                             Column(Modifier.padding(20.dp)) {
                                 Text(
-                                    text = "Character Info",
+                                    text = stringResource(id = R.string.detail_character_info_label),
                                     fontSize = 25.sp,
                                     modifier = Modifier.padding(bottom = 10.dp),
                                     fontWeight = FontWeight.Bold
                                 )
-                                Text(text = "Number of episodes: ${character.episode.size}")
-                                Text(text = "Created on ${DateUtils.dateConverter(character.created)}")
+                                Text(text = stringResource(R.string.detail_num_episodes, character.episode.size))
+                                Text(text = stringResource(R.string.detail_creation_date, DateUtils.dateConverter(character.created)))
                             }
                         }
                     }
