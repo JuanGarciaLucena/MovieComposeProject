@@ -1,4 +1,7 @@
 package com.emebesoft.movieProject.utils
 
-class NavigationArgs {
-}
+import dagger.Provides
+
+data class DetailNavigationArgs(
+    val characterId: Int
+)

@@ -31,7 +31,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.emebesoft.baseProject.R
 import com.emebesoft.movieProject.ui.common.MyToolbar
@@ -40,117 +39,135 @@ import com.emebesoft.movieProject.ui.common.LoadingUi
 import com.emebesoft.movieProject.ui.viewmodel.RickMortyCharacterViewModel
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.emebesoft.movieProject.domain.model.Character
+import com.emebesoft.movieProject.ui.screens.destinations.DetailMainDestination
+import com.emebesoft.movieProject.utils.DetailNavigationArgs
+import com.emebesoft.movieProject.utils.MovieAppNavGraph
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-class Home(private val navController: NavController) {
 
-    @Composable
-    fun HomeMain(viewModel: RickMortyCharacterViewModel) {
+private lateinit var appNavigator: DestinationsNavigator
 
-        val uiState by viewModel.characterFlow.collectAsStateWithLifecycle()
-        HomeUiStateManager(uiState)
+@MovieAppNavGraph(start = true)
+@Destination
+@Composable
+fun HomeMain(
+    navigator: DestinationsNavigator,
+    viewModel: RickMortyCharacterViewModel = hiltViewModel()
+) {
+    appNavigator = navigator
+    val uiState by viewModel.characterFlow.collectAsStateWithLifecycle()
+    HomeUiStateManager(uiState)
+}
+
+@Composable
+fun HomeUiStateManager(homeUiState: HomeUiState) {
+    when (homeUiState) {
+        is HomeUiState.Loading -> LoadingUi().LoadingScreen()
+        is HomeUiState.Success -> CharacterList(characterList = homeUiState.data)
+        is HomeUiState.Error -> Error().ErrorMain()
     }
+}
 
-    @Composable
-    fun HomeUiStateManager(homeUiState: HomeUiState) {
-        when (homeUiState) {
-            is HomeUiState.Loading -> LoadingUi().LoadingScreen()
-            is HomeUiState.Success -> CharacterList(characterList = homeUiState.data)
-            is HomeUiState.Error -> Error().ErrorMain()
-        }
-    }
+@Composable
+fun CharacterList(characterList: List<Character>) {
 
-    @Composable
-    fun CharacterList(characterList: List<Character>) {
+    var queryText by remember { mutableStateOf("") }
+    var active by remember { mutableStateOf(false) }
 
-        var queryText by remember { mutableStateOf("") }
-        var active by remember { mutableStateOf(false) }
+    Scaffold(topBar = { MyToolbar(title = stringResource(id = R.string.app_name)) }) {
+        it.calculateBottomPadding()
 
-        Scaffold(topBar = { MyToolbar(title = stringResource(id = R.string.app_name)) }) {
-            it.calculateBottomPadding()
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 56.dp)
+        ) {
 
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 56.dp)
+            SearchBar(
+                modifier = Modifier.align(Alignment.TopCenter),
+                query = queryText,
+                onQueryChange = { queryText = it },
+                onSearch = { active = false },
+                active = true,
+                onActiveChange = { isActive ->
+                    active = isActive
+                },
+                placeholder = { Text(stringResource(id = R.string.home_search_hint)) },
+                leadingIcon = {
+                    Icon(
+                        Icons.Default.Search, contentDescription = stringResource(
+                            id = R.string.content_description_search_character
+                        )
+                    )
+                },
+                trailingIcon = {
+                    Icon(
+                        Icons.Default.Close,
+                        contentDescription = null,
+                        modifier = Modifier.clickable { queryText = "" })
+                }
             ) {
-
-                SearchBar(
-                    modifier = Modifier.align(Alignment.TopCenter),
-                    query = queryText,
-                    onQueryChange = { queryText = it },
-                    onSearch = { active = false },
-                    active = true,
-                    onActiveChange = { isActive ->
-                        active = isActive
-                    },
-                    placeholder = { Text(stringResource(id = R.string.home_search_hint)) },
-                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = stringResource(
-                        id = R.string.content_description_search_character
-                    )) },
-                    trailingIcon = {
-                        Icon(
-                            Icons.Default.Close,
-                            contentDescription = null,
-                            modifier = Modifier.clickable { queryText = "" })
-                    }
+                LazyVerticalGrid(
+                    columns = GridCells.Adaptive(200.dp),
+                    modifier = Modifier.padding(bottom = 10.dp)
                 ) {
-                    LazyVerticalGrid(
-                        columns = GridCells.Adaptive(200.dp),
-                        modifier = Modifier.padding(bottom = 10.dp)
-                    ) {
 
-                        if (queryText.isNotEmpty()) {
-                            items(characterList.filter { item ->
-                                item.name.lowercase().contains(queryText.lowercase())
-                            }) { character ->
-                                GridItemView(character = character)
-                            }
-                        } else {
-                            items(characterList) { character ->
-                                GridItemView(character = character)
-                            }
+                    if (queryText.isNotEmpty()) {
+                        items(characterList.filter { item ->
+                            item.name.lowercase().contains(queryText.lowercase())
+                        }) { character ->
+                            GridItemView(character = character)
+                        }
+                    } else {
+                        items(characterList) { character ->
+                            GridItemView(character = character)
                         }
                     }
                 }
             }
         }
     }
+}
 
 
-    @Composable
-    fun GridItemView(character: Character) {
+@Destination
+@Composable
+fun GridItemView(character: Character) {
 
-        Box(modifier = Modifier.padding(10.dp)) {
-            Card(
-                colors = CardDefaults.cardColors(
-                    containerColor = colorResource(id = R.color.blue)
-                ),
-                shape = RoundedCornerShape(5.dp),
+    Box(modifier = Modifier.padding(10.dp)) {
+        Card(
+            colors = CardDefaults.cardColors(
+                containerColor = colorResource(id = R.color.blue)
+            ),
+            shape = RoundedCornerShape(5.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    appNavigator.navigate(DetailMainDestination(character.id))
+                }
+        ) {
+
+            AsyncImage(
+                model = character.image,
+                contentDescription = null,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { navController.navigate("Detail/${character.id}") }
-            ) {
+                    .fillMaxSize(),
+                contentScale = ContentScale.Crop,
+                error = painterResource(id = R.drawable.ic_placeholder)
+            )
 
-                AsyncImage(
-                    model = character.image,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    contentScale = ContentScale.Crop,
-                    error = painterResource(id = R.drawable.ic_placeholder)
-                )
-
-                Text(
-                    text = character.name,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(5.dp)
-                        .align(alignment = Alignment.CenterHorizontally),
-                    color = Color.White
-                )
-            }
+            Text(
+                text = character.name,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(5.dp)
+                    .align(alignment = Alignment.CenterHorizontally),
+                color = Color.White
+            )
         }
     }
 }

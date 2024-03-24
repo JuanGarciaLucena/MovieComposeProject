@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
-import com.emebesoft.movieProject.ui.common.Navigation
+import com.emebesoft.movieProject.ui.screens.HomeMain
+import com.emebesoft.movieProject.ui.screens.NavGraphs
+import com.ramcosta.composedestinations.DestinationsNavHost
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -13,7 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            Navigation().MyAppNavHost()
+            DestinationsNavHost(navGraph = NavGraphs.root)
         }
     }
 }
