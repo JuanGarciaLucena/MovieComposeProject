@@ -1,4 +1,4 @@
-package com.emebesoft.movieProject.utils
+package com.emebesoft.movieProject.domain.navigationArgs
 
 import dagger.Provides
 

@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
-import com.emebesoft.movieProject.ui.screens.HomeMain
 import com.emebesoft.movieProject.ui.screens.NavGraphs
 import com.ramcosta.composedestinations.DestinationsNavHost
 

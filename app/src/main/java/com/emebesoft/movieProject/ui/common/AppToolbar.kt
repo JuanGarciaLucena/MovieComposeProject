@@ -10,7 +10,7 @@ import androidx.compose.ui.res.colorResource
 import com.emebesoft.baseProject.R
 
 @Composable
-fun MyToolbar(
+fun AppToolbar(
     title: String,
     navigationIcon: (@Composable () -> Unit)? = null,
     actions: @Composable RowScope.() -> Unit = {}

@@ -1,6 +1,5 @@
-package com.emebesoft.movieProject.ui.screens
+package com.emebesoft.movieProject.ui.screens.detail
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -40,19 +38,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavArgumentBuilder
-import androidx.navigation.NavController
-import androidx.navigation.navArgument
 import coil.compose.AsyncImage
 import com.emebesoft.baseProject.R
 import com.emebesoft.movieProject.domain.model.Character
-import com.emebesoft.movieProject.ui.states.DetailUiState
-import com.emebesoft.movieProject.ui.common.LoadingUi
-import com.emebesoft.movieProject.ui.common.MyToolbar
+import com.emebesoft.movieProject.ui.common.AppToolbar
 import com.emebesoft.movieProject.ui.viewmodel.RickMortyCharacterViewModel
 import com.emebesoft.movieProject.utils.Constants
 import com.emebesoft.movieProject.utils.DateUtils
-import com.emebesoft.movieProject.utils.DetailNavigationArgs
+import com.emebesoft.movieProject.domain.navigationArgs.DetailNavigationArgs
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -71,7 +64,7 @@ fun DetailMain(
 
     Scaffold(
         topBar = {
-            MyToolbar(
+            AppToolbar(
                 title = "",
                 navigationIcon = {
                     IconButton(onClick = { navigator.popBackStack() }) {
@@ -93,19 +86,6 @@ fun DetailMain(
         ) {
             HomeUiStateManager(uiState)
         }
-    }
-}
-
-@Composable
-fun HomeUiStateManager(detailUiState: DetailUiState) {
-    when (detailUiState) {
-        is DetailUiState.Loading -> LoadingUi().LoadingScreen()
-        is DetailUiState.Success -> CharacterHeader(character = detailUiState.data)
-        is DetailUiState.Error -> Toast.makeText(
-            LocalContext.current,
-            detailUiState.Throwable!!.message,
-            Toast.LENGTH_LONG
-        ).show()
     }
 }
 

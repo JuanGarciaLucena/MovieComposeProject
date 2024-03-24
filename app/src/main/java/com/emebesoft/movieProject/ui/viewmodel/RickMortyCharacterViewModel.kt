@@ -1,7 +1,6 @@
 package com.emebesoft.movieProject.ui.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emebesoft.movieProject.data.repository.CharacterRepositoryImpl
@@ -9,8 +8,6 @@ import com.emebesoft.movieProject.ui.states.DetailUiState
 import com.emebesoft.movieProject.ui.states.HomeUiState
 import com.emebesoft.movieProject.ui.common.asResult
 import com.emebesoft.movieProject.ui.common.Result
-import com.emebesoft.movieProject.ui.screens.destinations.DetailMainDestination
-import com.emebesoft.movieProject.utils.DetailNavigationArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

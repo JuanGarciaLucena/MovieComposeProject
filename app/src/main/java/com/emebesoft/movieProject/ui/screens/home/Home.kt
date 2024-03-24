@@ -1,4 +1,4 @@
-package com.emebesoft.movieProject.ui.screens
+package com.emebesoft.movieProject.ui.screens.home
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -33,16 +33,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.emebesoft.baseProject.R
-import com.emebesoft.movieProject.ui.common.MyToolbar
-import com.emebesoft.movieProject.ui.states.HomeUiState
-import com.emebesoft.movieProject.ui.common.LoadingUi
+import com.emebesoft.movieProject.ui.common.AppToolbar
 import com.emebesoft.movieProject.ui.viewmodel.RickMortyCharacterViewModel
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.emebesoft.movieProject.domain.model.Character
 import com.emebesoft.movieProject.ui.screens.destinations.DetailMainDestination
-import com.emebesoft.movieProject.utils.DetailNavigationArgs
 import com.emebesoft.movieProject.utils.MovieAppNavGraph
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -63,21 +60,12 @@ fun HomeMain(
 }
 
 @Composable
-fun HomeUiStateManager(homeUiState: HomeUiState) {
-    when (homeUiState) {
-        is HomeUiState.Loading -> LoadingUi().LoadingScreen()
-        is HomeUiState.Success -> CharacterList(characterList = homeUiState.data)
-        is HomeUiState.Error -> Error().ErrorMain()
-    }
-}
-
-@Composable
 fun CharacterList(characterList: List<Character>) {
 
     var queryText by remember { mutableStateOf("") }
     var active by remember { mutableStateOf(false) }
 
-    Scaffold(topBar = { MyToolbar(title = stringResource(id = R.string.app_name)) }) {
+    Scaffold(topBar = { AppToolbar(title = stringResource(id = R.string.app_name)) }) {
         it.calculateBottomPadding()
 
         Box(
@@ -133,7 +121,6 @@ fun CharacterList(characterList: List<Character>) {
 }
 
 
-@Destination
 @Composable
 fun GridItemView(character: Character) {
 
